@@ -28,7 +28,7 @@
             <div class="layui-anim layui-anim-upbit hover" ng-if="ishover">
                 <img src="img/{{jdList.imgHover}}.png" alt="" usemap="#Maph">
                 <map name="Maph">
-                    <area shape="poly" coords="jdList.XY" ng-click="imghover(jdNum)">
+                    <area shape="poly" coords="{{jdList.XY}}" ng-click="imghover(jdNum)">
                     <area ng-click="imgback()" shape="poly" coords="{{blList.backXY}}">
                 </map>
                 <div class="font">
@@ -69,7 +69,7 @@
         <div class="main layui-anim layui-anim-upbit hover" ng-if="ismain03">
             <img src="img/{{jdList.imgALL_Cun}}.png" alt="" id="" usemap="#Map">
             <map name="Map">
-                <area shape="poly" coords="cun.XY" ng-click="imghover(cunIndx)" ng-repeat="(cunIndx,cun) in jdList.cunList">
+                <area shape="poly" coords="{{cun.XY}}" ng-click="imghover(cunIndx)" ng-repeat="(cunIndx,cun) in jdList.cunList">
                 <area shape="poly" ng-click="imgback()" coords="jdList.backXY">
             </map>
             <div class="font">
@@ -101,7 +101,7 @@
     app.controller("myctrl", function ($scope, $http) {
         $http.get('data/blqwzzb.json').success(function (resoponse) {
             $scope.blList = resoponse.blqwzzb[0];
-            console.log($scope.blList)
+            
         }).error(function (resoponse) {
             alert("JSON数据获取失败")
         });
@@ -116,6 +116,7 @@
                 $scope.jdNum = index;
                 $scope.ishover = true;
                 $scope.cout += 1;
+                console.log($scope.jdList)
             } else if ($scope.cout == 1) {
                 $scope.jdList = $scope.blList.jdList[index];
                 $scope.jdNum = index;
