@@ -28,8 +28,9 @@
             <div class="layui-anim layui-anim-upbit hover" ng-if="ishover">
                 <img src="img/{{jdList.imgHover}}.png" alt="" usemap="#Maph">
                 <map name="Maph">
-                    <area shape="poly" coords="{{jdList.XY}}" ng-click="imghover(jdNum)">
-                    <area ng-click="imgback()" shape="poly" coords="{{blList.backXY}}">
+                    <area shape="poly" coords="{{jd.XY}}" ng-click="imghover(jdIndex)" ng-repeat="(jdIndex,jd) in blList.jdList">
+                    <area ng-click="imgback()"
+                        shape="poly" coords="{{blList.backXY}}">
                 </map>
                 <div class="font">
                     <div class="font_content">
@@ -101,7 +102,7 @@
     app.controller("myctrl", function ($scope, $http) {
         $http.get('data/blqwzzb.json').success(function (resoponse) {
             $scope.blList = resoponse.blqwzzb[0];
-            
+
         }).error(function (resoponse) {
             alert("JSON数据获取失败")
         });
@@ -118,18 +119,29 @@
                 $scope.cout += 1;
                 console.log($scope.jdList)
             } else if ($scope.cout == 1) {
-                $scope.jdList = $scope.blList.jdList[index];
-                $scope.jdNum = index;
-                $scope.ismain01 = false;
-                $scope.ismain02 = true;
-                $scope.ishover = false;
-                $scope.cout += 1;
+                if (index == $scope.jdNum) {
+                    $scope.jdList = $scope.blList.jdList[index];
+                    $scope.ismain01 = false;
+                    $scope.ismain02 = true;
+                    $scope.ishover = false;
+                    $scope.cout += 1;
+                }else{
+                    $scope.ishover = false;
+                    $scope.jdList = $scope.blList.jdList[index];
+                    setTimeout(function(){
+                        $scope.ishover = true;
+                        console.log($scope.ishover)
+                    },1000);
+                    //$scope.ishover = true
+                    $scope.jdNum = index;
+                    $scope.cout = 1;
+                }
             } else if ($scope.cout == 2) {
                 $scope.pqList = $scope.jdList.pqList[index];
                 $scope.ishover = true;
                 $scope.cout += 1;
             } else if ($scope.cout == 3) {
-                
+
                 $scope.ismain02 = false;
                 $scope.ismain03 = true;
                 $scope.ishover = false;
@@ -165,4 +177,5 @@
         }
     })
 </script>
+
 </html>
