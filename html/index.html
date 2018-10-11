@@ -72,7 +72,7 @@
                 <area shape="poly" coords="{{cun.XY}}" ng-click="imghover(cunIndx)" ng-repeat="(cunIndx,cun) in jdList.cunList">
                 <area shape="poly" ng-click="imgback()" coords="{{jdList.backXY}}">
             </map>
-            <div class="font" ng-show="!ishover">
+            <div class="font" ng-show="cunFontHover">
                 <img src="img/imgcloud.png" alt="">
                 <div class="font_content">
                     <h1 ng-bind="jdList.title"></h1>
@@ -110,6 +110,7 @@
         $scope.ismain02 = false;
         $scope.ismain03 = false;
         $scope.ishover = false;
+        $scope.cunFontHover = false //村界面默认不显示
         $scope.cout = 0;
         $scope.imghover = function (index) {//点击某个地方进入下一层级
             if ($scope.cout == 0) {
@@ -148,6 +149,7 @@
                     $scope.ismain02 = false;
                     $scope.ismain03 = true;
                     $scope.ishover = false;
+                    $scope.cunFontHover = true;//村没有简介，简介部分特殊处理
                     $scope.cout += 1;
                 } else {
                     $scope.ishover = false;
@@ -162,6 +164,7 @@
                 $scope.cunList = $scope.jdList.cunList[index];
                 $scope.cunNum = index;
                 $scope.ishover = true;
+                $scope.cunFontHover = false;//村没有简介，简介部分特殊处理
                 $scope.cout += 1;
             } else if ($scope.cout == 5) {
                 if (index != $scope.cunNum) {
@@ -194,6 +197,7 @@
                 $scope.cout = 2;
             } else if ($scope.cout == 5) {
                 $scope.ishover = false;
+                $scope.cunFontHover = true;//村没有简介，简介部分特殊处理
                 $scope.cout -= 1;
             }
         }
