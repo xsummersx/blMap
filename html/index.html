@@ -72,9 +72,9 @@
                 <area shape="poly" coords="{{cun.XY}}" ng-click="imghover(cunIndx)" ng-repeat="(cunIndx,cun) in jdList.cunList">
                 <area shape="poly" ng-click="imgback()" coords="{{jdList.backXY}}">
             </map>
-            <div class="font">
+            <div class="font" ng-show="!ishover">
                 <img src="img/imgcloud.png" alt="">
-                <div class="font_content" ng-show="!ishover">
+                <div class="font_content">
                     <h1 ng-bind="jdList.title"></h1>
                     <p ng-bind="jdList.font"></p>
                 </div>
@@ -85,7 +85,7 @@
                     <area shape="poly" coords="{{cun.XY}}" ng-click="imghover(cunIndx)" ng-repeat="(cunIndx,cun) in jdList.cunList">
                     <area shape="poly" ng-click="imgback()" coords="{{cunList.backXY}}">
                 </map>
-                <div class="font">
+                <div class="font" ng-if="false">
                     <div class="font_content">
                         <h1 ng-bind="cunList.title"></h1>
                         <p ng-bind="cunList.font"></p>
@@ -120,21 +120,23 @@
                 console.log($scope.jdList)
             } else if ($scope.cout == 1) {
                 if (index == $scope.jdNum) {
-                    $scope.jdList = $scope.blList.jdList[index];
-                    $scope.ismain01 = false;
-                    $scope.ismain02 = true;
-                    $scope.ishover = false;
-                    $scope.cout += 1;
+                    if (index == 0 || index == 7) {//判断是否是已经做完的新碶街道和春晓街道//后期要删除
+                        $scope.jdList = $scope.blList.jdList[index];
+                        $scope.ismain01 = false;
+                        $scope.ismain02 = true;
+                        $scope.ishover = false;
+                        $scope.cout += 1;
+                    }
                 } else {
                     $scope.ishover = false;
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope.jdList = $scope.blList.jdList[index];
                         $scope.ishover = true;
-                    },100)
-                    
+                    }, 100)
                     $scope.jdNum = index;
                     $scope.cout = 1;
                 }
+
             } else if ($scope.cout == 2) {
                 $scope.pqList = $scope.jdList.pqList[index];
                 $scope.pqNum = index;
@@ -149,10 +151,10 @@
                     $scope.cout += 1;
                 } else {
                     $scope.ishover = false;
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope.pqList = $scope.jdList.pqList[index];
                         $scope.ishover = true;
-                    },100)
+                    }, 100)
                     $scope.pqNum = index;
                     $scope.cout = 3;
                 }
@@ -164,10 +166,10 @@
             } else if ($scope.cout == 5) {
                 if (index != $scope.cunNum) {
                     $scope.ishover = false;
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope.cunList = $scope.jdList.cunList[index];
                         $scope.ishover = true;
-                    },100)
+                    }, 0)
                     $scope.cunNum = index;
                     $scope.cout = 5;
                 }
