@@ -125,13 +125,13 @@
                 console.log($scope.jdList)
             } else if ($scope.cout == 1) {
                 if (index == $scope.jdNum) {
-                    if (index == 0 || index == 7) {//判断是否是已经做完的新碶街道和春晓街道//后期要删除
+                    
                         $scope.jdList = $scope.blList.jdList[index];
                         $scope.ismain01 = false;
                         $scope.ismain02 = true;
                         $scope.ishover = false;
                         $scope.cout += 1;
-                    }
+                    
                 } else {
                     $scope.ishover = false;
                     $timeout(function () {
