@@ -116,6 +116,7 @@
         $scope.cunFontHover = false //村界面默认不显示
         $scope.cout = 0;
         $scope.imghover = function (index) {//点击某个地方进入下一层级
+
             if ($scope.cout == 0) {
                 $scope.jdList = $scope.blList.jdList[index];
                 $scope.jdNum = index;
@@ -125,13 +126,20 @@
                 console.log($scope.jdList)
             } else if ($scope.cout == 1) {
                 if (index == $scope.jdNum) {
-                    
+                    if (index == 6) {//判断是否是大榭街道
+                        $scope.jdList = $scope.blList.jdList[index];
+                        $scope.ismain01 = false;
+                        $scope.ismain03 = true;
+                        $scope.ishover = false;
+                        $scope.cunFontHover = true;//村没有简介，简介部分特殊处理
+                        $scope.cout += 3;
+                    } else {
                         $scope.jdList = $scope.blList.jdList[index];
                         $scope.ismain01 = false;
                         $scope.ismain02 = true;
                         $scope.ishover = false;
                         $scope.cout += 1;
-                    
+                    }
                 } else {
                     $scope.ishover = false;
                     $timeout(function () {
@@ -141,7 +149,6 @@
                     $scope.jdNum = index;
                     $scope.cout = 1;
                 }
-
             } else if ($scope.cout == 2) {
                 $scope.pqList = $scope.jdList.pqList[index];
                 $scope.pqNum = index;
@@ -199,11 +206,19 @@
                 $scope.jdjj = true; // 进入上一级显示街道简介
                 $scope.cout -= 1;
             } else if ($scope.cout == 4) {
+                if($scope.jdList.cunList[0].imgAll=='img0107c'){//如果是大榭街道直接返回第一层
+                    $scope.ismain01 = true;
+                    $scope.ismain03 = false;
+                    $scope.ishover = false;
+                    $scope.bljj = true; // 进入上一级显示全区简介
+                    $scope.cout = 0;
+                }else{
                 $scope.jdjj = true; // 进入上一级显示街道简介
                 $scope.ismain02 = true;
                 $scope.ismain03 = false;
                 $scope.ishover = false;
                 $scope.cout = 2;
+                }
             } else if ($scope.cout == 5) {
                 $scope.ishover = false;
                 $scope.cunFontHover = true;//村没有简介，简介部分特殊处理
@@ -212,4 +227,5 @@
         }
     })
 </script>
+
 </html>
