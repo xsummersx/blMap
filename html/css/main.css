@@ -2,6 +2,11 @@ body{
     padding: 0;
     margin: 0;
 }
+.bgbox{
+    background:#a6d1ff url(../img/animation.gif) no-repeat center center; 
+    width:1920px;
+    height: 1080px; 
+}
 img,
         area {
             border: 0;
